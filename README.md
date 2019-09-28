@@ -8,7 +8,10 @@ cron-job by single clicks
 ### Installation
 You can install using npm.<br/>
 
+```
 npm install cronify-ui
+```
+
 
 ### Overview
 
