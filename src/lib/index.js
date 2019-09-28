@@ -27,16 +27,25 @@ exports.Job = class Job {
 
     updateLastExecution(date) {
         this.lastExecution = date;
-    }
-
-    cancel() {
-        this.status = 2;
-        this.jschedule.cancel();
-    }
-
-    reschedule() {
         this.status = 1;
+    }
 
+    cancel(reschedule) {
+        this.status = 2;
+        const _reschedule = reschedule || false;
+        this.jschedule.cancel(_reschedule);
+    }
+
+    cancelNext(reschedule) {
+        this.jschedule.cancelNext(reschedule);
+    }
+
+
+
+    //todo implement reschedule process for edit
+    reschedule(spec) {
+        this.status = 1;
+         return this.jschedule.reschedule(spec);
     }
 
 

@@ -47,22 +47,46 @@ const Cronify = (props) => {
             JobService.scheduleJob(name, cronex, callback);
         },
 
+        cancel: (jobId) => {
+            JobService.cancel(jobId);
+        },
+
+        cancelNext: (jobId) => {
+            JobService.cancel(jobId);
+        },
+
+        reschedule: (jobId, spec) => {
+
+        },
+
+        restart: (jobId) => {
+            JobService.restart(jobId)
+        }
+
+
+
 
     }
 };
 
 const cronify = Cronify({url: '/cronitor'});
 
-const cronex1 = '*/3 * * * *';
+const cronex1 = '*/1 * * * *';
 const cronex2 = '5 0 * 8 *';
 
 const obj = {i: 0};
 
 cronify.schedule('First Task', cronex1, () => {
     obj.i = Math.random()*10;
-    console.log("Hello:"+JSON.stringify(obj));
+    console.log(`VALUE: ${new Date().toISOString()}`);
 });
 
 cronify.schedule('Second Task', cronex2, () => {
     console.log("Hellolalala");
 });
+
+setTimeout(() => {cronify.cancel(0);
+console.log(`CANCEL: ${new Date().toISOString()}`)}, 1000 * 60 *2);
+
+setTimeout(() => {cronify.restart(0);
+    console.log(`RESTART: ${new Date().toISOString()}`)}, 1000 * 60 *3 );
